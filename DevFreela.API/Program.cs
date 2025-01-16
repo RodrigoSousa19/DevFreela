@@ -1,3 +1,4 @@
+using DevFreela.API.ExceptionsHandler;
 using DevFreela.API.Models;
 using DevFreela.API.Services;
 
@@ -14,6 +15,9 @@ builder.Services.Configure<FreelanceTotalCostConfig>(builder.Configuration.GetSe
 
 builder.Services.AddTransient<IConfigService, ConfigService>();
 
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
