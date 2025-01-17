@@ -8,5 +8,7 @@
         }
 
         public string Description { get; private set; }
+
+        public List<UserSkill> UserSkills { get; private set; }
     }
 }
