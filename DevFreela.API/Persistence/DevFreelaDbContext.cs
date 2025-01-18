@@ -36,6 +36,8 @@ namespace DevFreela.API.Persistence
                 e.HasKey(e => e.Id);
 
                 e.HasOne(p => p.Project).WithMany(p => p.Comments).HasForeignKey(p => p.IdProject).OnDelete(DeleteBehavior.Restrict);
+
+                e.HasOne(u => u.User).WithMany(u => u.Comments).HasForeignKey(u => u.IdUser).OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<User>(e =>
