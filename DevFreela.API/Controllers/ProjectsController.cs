@@ -1,11 +1,8 @@
-﻿using DevFreela.API.Entities;
-using DevFreela.API.Models;
-using DevFreela.API.Persistence;
-using DevFreela.API.Services;
-using Microsoft.AspNetCore.Http;
+﻿using DevFreela.Application.Models;
+using DevFreela.Core.Entities;
+using DevFreela.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace DevFreela.API.Controllers
 {
@@ -21,7 +18,7 @@ namespace DevFreela.API.Controllers
 
         // GET api/projects?search=1234
         [HttpGet]
-        public IActionResult Get(string search = "",int page = 1, int size = 3)
+        public IActionResult Get(string search = "", int page = 1, int size = 3)
         {
             var projects = _context.Projects
                 .Include(p => p.Client)

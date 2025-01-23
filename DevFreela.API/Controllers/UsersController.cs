@@ -1,7 +1,6 @@
-﻿using DevFreela.API.Entities;
-using DevFreela.API.Models;
-using DevFreela.API.Persistence;
-using Microsoft.AspNetCore.Http;
+﻿using DevFreela.Application.Models;
+using DevFreela.Core.Entities;
+using DevFreela.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,7 +41,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost("{id}/skills")]
-        public IActionResult PostSkills(int id,UserSkillsInputModel model)
+        public IActionResult PostSkills(int id, UserSkillsInputModel model)
         {
             var userSkills = model.SkillIds.Select(s => new UserSkill(id, s)).ToList();
 
@@ -53,7 +52,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPut("{id}/profile-picture")]
-        public IActionResult PostProfilePicture(int id,IFormFile file)
+        public IActionResult PostProfilePicture(int id, IFormFile file)
         {
             var description = $"File: {file.FileName}, Size: {file.Length}";
 

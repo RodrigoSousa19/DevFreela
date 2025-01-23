@@ -1,6 +1,6 @@
-﻿using DevFreela.API.Entities;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.API.Models
+namespace DevFreela.Application.Models
 {
     public class CreateProjectInputModel
     {
@@ -8,7 +8,7 @@ namespace DevFreela.API.Models
         public string Description { get; set; }
         public int IdClient { get; set; }
         public int IdFreeLancer { get; set; }
-        public Decimal Totalcost { get; set; }
+        public decimal Totalcost { get; set; }
 
         public Project ToEntity() => new(Title, Description, IdClient, IdFreeLancer, Totalcost);
     }

@@ -1,6 +1,6 @@
-﻿using DevFreela.API.Enums;
+﻿using DevFreela.Core.Enums;
 
-namespace DevFreela.API.Entities
+namespace DevFreela.Core.Entities
 {
     public class Project : BaseEntity
     {
@@ -32,7 +32,7 @@ namespace DevFreela.API.Entities
 
         public void Cancel()
         {
-            if(Status == ProjectStatusEnum.InProgress || Status == ProjectStatusEnum.Suspended)
+            if (Status == ProjectStatusEnum.InProgress || Status == ProjectStatusEnum.Suspended)
             {
                 Status = ProjectStatusEnum.Cancelled;
             }
@@ -58,7 +58,7 @@ namespace DevFreela.API.Entities
 
         public void SetPaymentPending()
         {
-            if(Status == ProjectStatusEnum.InProgress)
+            if (Status == ProjectStatusEnum.InProgress)
             {
                 Status = ProjectStatusEnum.PaymentPending;
             }
