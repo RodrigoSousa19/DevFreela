@@ -1,5 +1,6 @@
 using DevFreela.API.ExceptionsHandler;
 using DevFreela.API.Services;
+using DevFreela.Application;
 using DevFreela.Application.Models;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.Configure<FreelanceTotalCostConfig>(builder.Configuration.GetSe
 
 builder.Services.AddTransient<IConfigService, ConfigService>();
 
+builder.Services.AddApplication();
 
 var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
 builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseSqlServer(connectionString));
