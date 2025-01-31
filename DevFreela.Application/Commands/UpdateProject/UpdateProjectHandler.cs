@@ -1,35 +1,30 @@
 ﻿using DevFreela.Application.Models;
+using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Application.Commands.UpdateProject
 {
     public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, ResultViewModel>
     {
-        private readonly DevFreelaDbContext _context;
+        private readonly IProjectRepository _repository;
 
-        public UpdateProjectHandler(DevFreelaDbContext context)
+        public UpdateProjectHandler(IProjectRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<ResultViewModel> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {
-            var project = await _context.Projects.SingleOrDefaultAsync(p => p.Id == request.IdProject);
+            var project = await _repository.GetById(request.IdProject);
 
             if (project is null)
                 return ResultViewModel.Error("Não foi possível localizar o projeto especificado");
 
             project.Update(request.Title, request.Description, request.TotalCost);
 
-            _context.Projects.Update(project);
-            await _context.SaveChangesAsync();
+            await _repository.Update(project);
 
             return ResultViewModel.Success();
         }

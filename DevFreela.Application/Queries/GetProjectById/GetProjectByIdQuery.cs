@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using DevFreela.Application.Models;
+﻿using DevFreela.Application.Models;
 using MediatR;
 
 namespace DevFreela.Application.Queries.GetProjectById

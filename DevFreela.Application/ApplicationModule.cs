@@ -1,5 +1,4 @@
 ﻿using DevFreela.Application.Commands.InsertProject;
-using DevFreela.Application.Services;
 using DevFreela.Core.Entities;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +16,6 @@ namespace DevFreela.Application
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IProjectService, ProjectService>();
-
             return services;
         }
 
