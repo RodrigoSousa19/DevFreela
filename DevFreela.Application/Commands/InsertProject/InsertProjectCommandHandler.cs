@@ -5,11 +5,11 @@ using MediatR;
 
 namespace DevFreela.Application.Commands.InsertProject
 {
-    internal class InsertProjectHandler : IRequestHandler<InsertProjectCommand, ResultViewModel<Project>>
+    public class InsertProjectCommandHandler : IRequestHandler<InsertProjectCommand, ResultViewModel<Project>>
     {
         private readonly IProjectRepository _repository;
         private readonly IMediator _mediator;
-        public InsertProjectHandler(IProjectRepository repository, IMediator mediator)
+        public InsertProjectCommandHandler(IProjectRepository repository, IMediator mediator)
         {
             _repository = repository;
             _mediator = mediator;
