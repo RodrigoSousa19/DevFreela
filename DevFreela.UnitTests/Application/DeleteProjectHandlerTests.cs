@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
 using Moq;
 using NSubstitute;
 
@@ -9,7 +10,7 @@ namespace DevFreela.UnitTests.Application
     public class DeleteProjectHandlerTests
     {
         [Fact]
-        public async Task ProjectExists_Delete_Sucess_NSubstitute()
+        public async Task ProjectExists_Delete_Success_NSubstitute()
         {
             //Arrange
             var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
@@ -26,13 +27,14 @@ namespace DevFreela.UnitTests.Application
 
 
             //Assert
-            Assert.True(result.IsSuccess);
+            //Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue();
             await repository.Received(1).GetById(1);
             await repository.Received(1).Update(Arg.Any<Project>());
         }
 
         [Fact]
-        public async Task ProjectExists_Delete_Sucess_Moq()
+        public async Task ProjectExists_Delete_Success_Moq()
         {
             //Arrange
             var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
@@ -47,7 +49,8 @@ namespace DevFreela.UnitTests.Application
 
 
             //Assert
-            Assert.True(result.IsSuccess);
+            //Assert.True(result.IsSuccess);
+            result.IsSuccess.Should().BeTrue();
             Mock.Get(repository).Verify(r => r.GetById(It.IsAny<int>()), Times.Once);
             Mock.Get(repository).Verify(r => r.Update(It.IsAny<Project>()), Times.Once);
         }
@@ -69,9 +72,10 @@ namespace DevFreela.UnitTests.Application
             var result = await handler.Handle(command, new CancellationToken());
 
             //Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND,result.Message);
-
+            //Assert.False(result.IsSuccess);
+            result.IsSuccess.Should().BeFalse();
+            //Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND,result.Message);
+            result.Message.Should().Be(DeleteProjectHandler.PROJECT_NOT_FOUND);
             await repository.Received(1).GetById(Arg.Any<int>());
             await repository.DidNotReceive().Update(Arg.Any<Project>());
         }
@@ -92,8 +96,10 @@ namespace DevFreela.UnitTests.Application
             var result = await handler.Handle(command, new CancellationToken());
 
             //Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND, result.Message);
+            //Assert.False(result.IsSuccess);
+            result.IsSuccess.Should().BeFalse();
+            //Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND,result.Message);
+            result.Message.Should().Be(DeleteProjectHandler.PROJECT_NOT_FOUND);
 
             Mock.Get(repository).Verify(r => r.GetById(It.IsAny<int>()), Times.Once);
             Mock.Get(repository).Verify(r => r.Update(It.IsAny<Project>()), Times.Never);
