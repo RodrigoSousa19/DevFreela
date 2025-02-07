@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using DevFreela.UnitTests.Helpers;
 using FluentAssertions;
 using Moq;
 using NSubstitute;
@@ -13,7 +14,7 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectExists_Delete_Success_NSubstitute()
         {
             //Arrange
-            var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Substitute.For<IProjectRepository>();
             repository.GetById(1).Returns(Task.FromResult((Project?)project));
@@ -37,7 +38,7 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectExists_Delete_Success_Moq()
         {
             //Arrange
-            var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Mock.Of<IProjectRepository>(p => p.GetById(It.IsAny<int>()) == Task.FromResult(project) && p.Update(It.IsAny<Project>()) == Task.CompletedTask);
 
@@ -59,7 +60,7 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectDoesNotExist_Delete_Error_NSubstitute()
         {
             //Arrange
-            var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Substitute.For<IProjectRepository>();
             repository.GetById(Arg.Any<int>()).Returns(Task.FromResult((Project?)null));
@@ -84,7 +85,7 @@ namespace DevFreela.UnitTests.Application
         public async Task ProjectDoesNotExist_Delete_Error_Moq()
         {
             //Arrange
-            var project = new Project("Projeto A", "Descrição A", 1, 2, 1234.34M);
+            var project = FakeDataHelper.CreateFakeProject();
 
             var repository = Mock.Of<IProjectRepository>(p => p.GetById(It.IsAny<int>()) == Task.FromResult((Project?)null) && p.Update(It.IsAny<Project>()) == Task.CompletedTask);
 
